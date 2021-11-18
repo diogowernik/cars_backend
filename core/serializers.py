@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
   profile = ProfileSerializer(required=True)
   class Meta:
     model = User
-    fields = ('url', 'email', 'profile', 'created',)
+    fields = ('url', 'email', 'profile', 'password')
 
   def create(self, validated_data):
 
@@ -39,6 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
     user = User.objects.create(
       url = validated_data['url'],
       email = validated_data['email'],
+      password = validated_data['password'],
       # etc ...
     )
 

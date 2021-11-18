@@ -41,7 +41,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     objects = UserManager()
     email = models.EmailField(unique=True, db_index=True)
-    created = models.DateTimeField('created', auto_now_add=True)
+    # created = models.DateTimeField('created', auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     is_active = models.BooleanField('active', default=True)

@@ -18,12 +18,14 @@ class CarDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = models.Car.objects.all()
 
 class UserList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrWriteOnly,)
-    serializer_class = UserSerializer
+  serializer_class = serializers.UserSerializer
 
-    def post(self, request, format=None):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  def get_queryset(self):
+    return models.User.objects.filter(email=self.request.user.id)
+
+  def post(self, request, format=None):
+    serializer = UserSerializer(data=request.data)
+    # if serializer.is_valid():
+    #   serializer.save()
+    #   return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
