@@ -16,3 +16,5 @@ class CarDetail(generics.RetrieveUpdateDestroyAPIView):
   permission_classes = [permissions.IsOwnerOrReadOnly]
   serializer_class = serializers.CarDetailSerializer
   queryset = models.Car.objects.all()
+
+
