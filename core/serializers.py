@@ -5,13 +5,13 @@ from . import models
 class CarSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.Car
-    fields = ('id', 'plate', 'year', 'brand', 'color')
+    fields = ('id', 'plate', 'year', 'brand', 'color','is_active')
 
 class CarDetailSerializer(serializers.ModelSerializer):
   
   class Meta:
     model = models.Car
-    fields = ('id', 'plate', 'year', 'brand', 'color')
+    fields = ('id', 'plate', 'year', 'brand', 'color','is_active')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class ProfileSerializer(serializers.ModelSerializer):
   def save(self, **kwargs):
     profile = self.validated_data.pop('profile')
     instance = super().save(**kwargs)
-    Profile.objects.update_or_create(user=instance, defaults=profile)
+    models.Profile.objects.update_or_create(user=instance, defaults=profile)
     return instance
 
 class UserSerializer(serializers.ModelSerializer):
@@ -45,7 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     profile_data = validated_data.pop('profile')
     # create profile
-    profile = Profile.objects.create(
+    profile = models.Profile.objects.create(
       user = user,
       first_name = profile_data['first_name'],
       last_name = profile_data['last_name'],

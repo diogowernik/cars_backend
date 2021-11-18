@@ -14,6 +14,7 @@ class Car(models.Model):
   year = models.CharField(max_length=100, blank=True)
   brand = models.CharField(max_length=100, blank=True)
   color = models.CharField(max_length=100, blank=True)
+  is_active = models.BooleanField('active', default=True)
 
   def __str__(self):
     return "{}/{}".format(self.owner.username, self.plate)
