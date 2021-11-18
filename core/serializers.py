@@ -6,8 +6,8 @@ class CarSerializer(serializers.ModelSerializer):
     model = models.Car
     fields = ('id', 'plate', 'year', 'brand', 'color')
 
-class CarDetailSerializer(serializers.ModelSerializer):
+# class CarDetailSerializer(serializers.ModelSerializer):
   
-  class Meta:
-    model = models.Car
-    fields = ('id', 'plate', 'year', 'brand', 'color')
+#   class Meta:
+#     model = models.Car
+#     fields = ('id', 'plate', 'year', 'brand', 'color')

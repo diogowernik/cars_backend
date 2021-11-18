@@ -10,6 +10,6 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
 
     path('api/cars/', views.CarList.as_view()),
-    path('api/cars/<pk>', views.CarDetail.as_view()),
+    # path('api/cars/<pk>', views.CarDetail.as_view()),
 
 ]
