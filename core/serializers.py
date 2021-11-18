@@ -13,6 +13,7 @@ class CarDetailSerializer(serializers.ModelSerializer):
     model = models.Car
     fields = ('id', 'plate', 'year', 'brand', 'color')
 
+
 class ProfileSerializer(serializers.ModelSerializer):
   phone_number = serializers.CharField(source='profile.phone_number')
   
@@ -25,3 +26,29 @@ class ProfileSerializer(serializers.ModelSerializer):
     instance = super().save(**kwargs)
     Profile.objects.update_or_create(user=instance, defaults=profile)
     return instance
+
+class UserSerializer(serializers.ModelSerializer):
+  profile = ProfileSerializer(required=True)
+  class Meta:
+    model = User
+    fields = ('url', 'email', 'profile', 'created',)
+
+  def create(self, validated_data):
+
+    # create user 
+    user = User.objects.create(
+      url = validated_data['url'],
+      email = validated_data['email'],
+      # etc ...
+    )
+
+    profile_data = validated_data.pop('profile')
+    # create profile
+    profile = Profile.objects.create(
+      user = user,
+      first_name = profile_data['first_name'],
+      last_name = profile_data['last_name'],
+      phone_number = profile_data['phone_number'],
+    )
+
+    return user
